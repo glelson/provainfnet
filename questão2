@@ -1,1 +1,4 @@
 
+SELECT Customers.CustomerName, Orders.OrderID, products.ProductName, Suppliers.Country FROM Customers,Orders, products, Suppliers
+WHERE Suppliers.Country = "Brazil"
+;
