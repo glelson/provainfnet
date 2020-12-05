@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="theme-color" content="#0083ef"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>Infnet</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+  <nav class="blue black" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="index.html" class="brand-logo">Consumindo API Câmara</a> 
+    </div>
+  </nav>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <h1 class="header center black-text">Deputados</h1>
+    </div>
+  </div>
+
+  <div class="container" id="app">
+    <div class="section">
+      <div class="row">
+        <div class="input-field col s12 m4">
+          <input id="partido" type="text" v-model="filtro_partidos" v-on:keyup="filtrarPartidos()">
+          <label for="partido">Pesquise por nome do partido</label>
+        </div>
+        <div class="col s12">
+          <div v-if="processando">
+            <div>
+              Buscando dados da câmara, por favor aguarde...
+            </div>
+            <div class="progress">
+                <div class="indeterminate"></div>
+            </div>
+          </div>
+        </div>
+        <div class="col s12" v-cloak>
+          <div v-if="!processando" class="red-text">
+            <div class="card black">
+              <div class="card-content white-text">
+                <h4 class="center-align">Estatísticas</h4>
+                <div class="row center-align">
+                  <div class="col s12 m6">
+                    <strong>Quantidade de deputados</strong><br>
+                    <span>{{quantidade_filtrados}}</span>
+                  </div>
+                  <div class="col s12 m6">
+                    <strong>Quantidade de partidos</strong><br>
+                    <span>{{quantidade_partidos}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col s12 m3" v-for="bloco in deputados_filtrados" v-if="!processando" v-cloak>
+          <div class="card blue-grey">
+            <div class="card-content white-text center-align">
+              <img :src="bloco.urlFoto" :alt="bloco.nome" style="max-width: 110px">
+              <span class="card-title">{{bloco.id}}</span>
+              <p class="truncate">{{bloco.nome}}</p>
+              <p><strong>Estado(UF): </strong>{{bloco.siglaUf}}</p>
+              <p><strong>Partido: </strong>{{bloco.siglaPartido}}</p>
+            </div>
+            <div class="card-action">
+              <a :href="'deputados_detalhes.html?deputado_id='+bloco.id">Ver mais</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br><br>
+  </div>
+
+  <!--  Scripts-->
+  <script src="js/funcoes.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="js/deputados.js"></script>
+  </body>
+</html>
